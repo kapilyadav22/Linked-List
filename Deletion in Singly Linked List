@@ -1,0 +1,158 @@
+#include <iostream>
+using namespace std;
+ 
+struct Node
+{
+    int data;
+    Node *next;
+ 
+    Node(int val)
+    {
+       data=val;
+        next = NULL;
+    }
+};
+ 
+ 
+void linkedlist(Node** head)
+{
+    int N, value;
+cin>>N;
+ 
+Node *current = NULL;
+int i=0;
+ 
+ Node *dummynode =  new Node(-1000);
+ *head=dummynode;
+ 
+while(i!=N)
+ {   cin>>value;
+    current = new Node(value);
+    dummynode->next = current;
+    dummynode= dummynode->next;
+    i++;
+}
+*head = (*head)->next;
+}
+ 
+ 
+void printlinkedlist(Node* head)
+{
+    //head = head->next;
+    
+    cout<<endl;
+while(head!=NULL)
+{
+    cout<<head->data<<" \t";
+    head=head->next;
+}
+ 
+}
+ 
+void deletefrombeginning(Node** head)
+{        
+    if(*head!=NULL)
+    {
+    Node* dummynode = new Node(-500);
+         dummynode->next=*head;
+        
+          Node* temp = dummynode->next;
+        
+               dummynode->next = temp->next;
+          delete temp;
+        *head = dummynode->next;
+    }
+    
+}
+ 
+void deletefromend(Node** head)
+{                                
+            if(*head!=NULL)   // or we can use if(head==NULL) return;
+    { Node* dummynode = new Node(-500);
+       dummynode->next=*head;
+ 
+     Node* prev = dummynode;
+       Node* current = *head;
+ 
+      while(current->next!= NULL)
+      {
+          prev= current;
+          current=current->next;
+      }
+      delete current;
+      prev->next= NULL;
+      *head= dummynode->next;
+    }
+      } 
+ 
+ 
+void deleteatposition(Node** head, int position)
+{    if(*head==NULL || position<0)
+        return;
+     Node*  dummynode = new Node(-500);
+       dummynode->next=*head;
+    
+    Node* temp =*head;
+        
+        int count = 0;
+        Node* prev =dummynode;
+        while(count<position && temp->next!=NULL)
+        {
+            count++;
+            prev=temp;
+            temp=temp->next;
+        }
+ 
+        if(count<position)
+          return;
+ 
+        prev->next = temp->next;
+        delete temp;
+     *head=dummynode->next;
+}
+ 
+ 
+int main() 
+{
+ 
+ Node *head = NULL;
+linkedlist(&head);
+cout<<" Created linked list ";
+printlinkedlist(head);
+ 
+deleteatposition(&head,2523563);
+cout<<endl<<" Delete from a particular position in the linked list ";
+printlinkedlist(head);
+ 
+ 
+deletefrombeginning(&head);
+cout<<endl<<" Delete from beginning in the  linked list ";
+printlinkedlist(head);
+ 
+ 
+deletefromend(&head);
+cout<<endl<<" Delete from end in the  linked list ";
+printlinkedlist(head);
+ 
+deletefromend(&head);
+cout<<endl<<" Delete from end in the  linked list ";
+printlinkedlist(head);
+ 
+ 
+ 
+deletefromend(&head);
+cout<<endl<<" Delete from end in the  linked list ";
+printlinkedlist(head);
+deletefromend(&head);
+cout<<endl<<" Delete from end in the  linked list ";
+printlinkedlist(head);
+deletefromend(&head);
+cout<<endl<<" Delete from end in the  linked list ";
+printlinkedlist(head);
+ 
+}
+ 
+ 
+ 
+ 
+ 
