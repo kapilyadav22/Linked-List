@@ -1,0 +1,46 @@
+
+//using two traversal
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* current =head;
+      int length = 0;
+      
+      while(current!=NULL)
+      {
+          length+=1;
+          current=current->next;
+        }
+      
+      int mid= length/2+1;
+      for(int i=1;i<mid;i++)
+      {
+        head=head->next;
+      }
+       return head;
+      
+    }
+};
+
+// Using two pointers approach
+
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast =head;
+        ListNode* slow = head;
+        
+       while(fast->next && fast->next->next)
+       {
+           fast=fast->next->next;
+           slow =slow->next;
+       }
+      if(fast->next!=NULL)
+          slow=slow->next;
+        return slow;
+    }
+};
+/* TC= O(N)
+   SC= O(1)
+*/
