@@ -15,3 +15,26 @@ public:
     }
 
 };
+
+
+//iterative approach
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev=NULL;
+        ListNode* current = head;
+        ListNode* Temp= NULL;
+      
+      while(current!=NULL)
+      {
+         Temp= current->next;
+         current->next= prev;
+          prev= current;
+        current=Temp;
+      }
+      return prev;
+    }
+};
+
+//TC = O(N)
+//SC = O(1)
