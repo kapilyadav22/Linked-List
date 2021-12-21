@@ -1,0 +1,40 @@
+//iterative
+
+class Solution {
+public:
+	ListNode* deleteDuplicates(ListNode* head) {
+		ListNode* curr = head;
+		ListNode* temp = NULL;
+		while(curr && curr -> next){
+			if(curr -> val == curr -> next -> val){
+				temp = curr -> next;
+				curr -> next = curr -> next -> next;
+				delete temp;
+			}
+			else{
+				curr = curr -> next;
+			}
+		}
+		return head;
+	}
+};
+
+//recursion
+class Solution {
+public:
+	ListNode* deleteDuplicates(ListNode* head) {
+		if(!head || !(head -> next)){
+			return head;
+		}
+		if(head -> val == head -> next -> val){
+			ListNode* temp = head -> next;
+			head -> next = head -> next -> next;
+			delete temp;
+			deleteDuplicates(head);
+		}
+		else{
+			deleteDuplicates(head -> next);
+		}
+		return head;
+	}
+};
