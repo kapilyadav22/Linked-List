@@ -1,0 +1,162 @@
+#include <iostream>
+using namespace std;
+ 
+struct Node
+{
+    int data;
+    Node *next;
+ 
+ 
+    Node(int val)
+    {
+       data=val;
+        next = NULL;
+    }
+};
+ 
+ 
+void linkedlist(Node** head)
+{
+    int N, value;
+cin>>N;
+ 
+ Node *current = NULL;
+int i=0;
+ 
+ Node *dummynode =  new Node(-1000);
+*head=dummynode;
+ 
+ 
+while(i!=N)
+ {   cin>>value;
+    current = new Node(value);
+    dummynode->next = current;
+    dummynode= dummynode->next;
+    i++;
+}
+*head = (*head)->next;
+}
+ 
+ 
+void printlinkedlist(Node* head)
+{
+    //head = head->next; 
+    cout<<endl;
+while(head!=NULL)
+{
+    cout<<head->data<<" \t";
+    head=head->next;
+}
+ 
+}
+ 
+void insertatbeg(Node** head, int newval)
+{
+     Node* newnode = new Node(newval);
+     newnode->next= *head;
+     *head= newnode;
+}
+ 
+void insertatend(Node** head, int newval)
+{
+  Node* temp = *head; 
+ Node* newnode = new Node(newval);
+ if(temp==NULL)
+  { *head = newnode;
+  return;
+  }
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+ 
+    temp->next=newnode;
+    newnode->next = NULL;
+ 
+}
+ 
+void insertinbetween(Node* head, Node* n1, Node* n2, int newval)
+{
+  Node* temp = head; 
+    while(temp!=n1)
+    {
+            temp = temp->next;
+    }
+     Node* between = new Node(newval);
+    between->next = n2;
+    (n1)->next= between; 
+}
+ 
+ 
+void insertafteranelement(Node* head, int after, int value)
+{   Node* temp = head;
+ 
+   while(temp!=NULL && temp->next!=NULL  && temp->data!=after)
+   {
+       temp=temp->next;
+   }
+ 
+if((temp==NULL) || (temp->data!=after))
+{
+    return;
+}
+else
+   {  Node* newnode = new Node(value);
+        newnode->next= temp->next;
+       temp->next = newnode;
+   }
+} 
+ 
+void insertafteranelementwithindex(Node* prevnode, int val)
+{      
+    if(prevnode==NULL)
+      return ;
+ 
+    Node* newnode = new Node(val);
+    newnode->next = prevnode->next;
+    prevnode->next = newnode;
+}
+ 
+int main() 
+{
+Node *head = NULL;
+linkedlist(&head);
+cout<<" Created linked list ";
+printlinkedlist(head);
+ 
+ insertatbeg(&head,1000);
+ cout<<endl<<"insert at beginning";
+ printlinkedlist(head);
+ insertatbeg(&head,5000);
+ cout<<endl<<"insert at beginning";
+ printlinkedlist(head);
+ 
+cout<<endl<<" Insert element at the Ending ";
+insertatend(&head,50);
+printlinkedlist(head);
+cout<<endl<<" Insert element at the Ending ";
+insertatend(&head,10);
+printlinkedlist(head);
+insertafteranelementwithindex(head, 200);
+cout<<endl<<" Insert element after index head ";
+printlinkedlist(head);
+ 
+ insertatbeg(&head,600);
+ cout<<endl<<"insert at beginning";
+ printlinkedlist(head);
+ 
+  Node *n1 = head->next;
+  Node *n2 = head->next->next;
+insertinbetween(head,n1, n2, 25);
+ cout<<endl<<"insert bewtween two pointers";
+ printlinkedlist(head);
+ 
+insertafteranelement(head,3,700);
+ cout<<endl<<"insert after an element";
+ printlinkedlist(head);
+ 
+ 
+}
+ 
+ 
+ 
