@@ -16,3 +16,31 @@ public:
         return false;
     }
 };
+
+
+//two pointers approach
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+       if(head==NULL)
+           return false;
+        
+        ListNode* slow=head;
+       ListNode* fast=head;
+       
+        
+        while(fast->next && fast->next->next)
+        {    
+            slow= slow->next;
+            fast= fast->next->next;
+                if(slow==fast)
+                     return true;
+        }
+           
+        return false;
+    }
+};
+
+// 2 corner cases - 1st : if no node 2nd : if only one node 
+//TC = O(N)
+//SC = O(1)
