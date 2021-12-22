@@ -1,0 +1,113 @@
+//first approach TC = O(N+N) SC=O(N) , creating new node for copying existing linkedlist
+class Solution {
+public:
+    
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev=NULL;
+        ListNode* current = head;
+        ListNode* Temp= NULL;
+      
+      while(current!=NULL)
+      {
+         Temp= current->next;
+         current->next= prev;
+          prev= current;
+        current=Temp;
+      }
+      return prev;
+    }
+    
+    bool isPalindrome(ListNode* head) {
+     
+        ListNode* copynode = head; 
+        ListNode* dummynode = new ListNode(-5000);
+        ListNode* currentnode = dummynode;
+        
+        while(copynode!=NULL)
+        {
+            ListNode* newnode = new ListNode(copynode->val);
+            currentnode->next = newnode;
+            currentnode= currentnode->next;
+            copynode=copynode->next;
+        }
+       
+        
+     ListNode* secondnode=dummynode->next;  
+     ListNode* firstnode = reverseList(head);
+      
+        while(firstnode)
+        {     
+            if((firstnode->val)==(secondnode->val))
+            {
+                firstnode=firstnode->next;
+                secondnode=secondnode->next; 
+           } 
+            else { return false;
+            }
+        }
+        return true;
+      
+    }
+};
+
+//two pointers approach
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast =head;
+        ListNode* slow = head;
+        
+       while(fast->next && fast->next->next)
+       {
+           fast=fast->next->next;
+           slow =slow->next;
+       }
+        return slow;
+    }
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev=NULL;
+        ListNode* current = head;
+        ListNode* Temp= NULL;
+      
+      while(current!=NULL)
+      {
+         Temp= current->next;
+         current->next= prev;
+          prev= current;
+        current=Temp;
+      }
+      return prev;
+    }
+    
+    
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return true;
+        
+        ListNode* middle = middleNode(head);
+        ListNode* tempnode = middle->next;
+        middle->next =NULL;
+        
+        ListNode* templist = reverseList(tempnode);
+         return compare(head, templist);        
+    }
+    
+    bool compare(ListNode* l1, ListNode* l2)
+    {
+        
+        while(l1 && l2)
+        {
+            if(l1->val!=l2->val)
+            {
+                return false;
+            }
+            l1=l1->next;
+            l2=l2->next;
+        }
+     return true;   
+    }
+    
+    
+};
+
