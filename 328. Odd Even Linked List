@@ -1,0 +1,31 @@
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        ListNode* dummynode1 = new ListNode(-100);
+         ListNode* dummynode2 = new ListNode(-1001);
+        ListNode* odd=dummynode1;
+        ListNode* even=dummynode2;
+       
+        int count=1;
+        while(head)
+        {
+            if(count%2)
+            {   ListNode* newnode = new ListNode(head->val);
+                odd->next= newnode;
+                odd=odd->next;
+            }
+            else
+            {   ListNode* newnode = new ListNode(head->val);
+                even->next=newnode;
+                even=even->next;
+            
+            }
+            head=head->next;
+            count++;
+        }
+        odd->next=dummynode2->next;
+        return dummynode1->next;
+    }
+};
+
+
