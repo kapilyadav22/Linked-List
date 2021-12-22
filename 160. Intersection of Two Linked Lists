@@ -1,0 +1,22 @@
+//brute force O(M*N)  
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+       ListNode* temp;
+        while(headA)
+        {  temp=headB;  
+            while(temp)
+            {   if(headA==temp)
+                {
+                return headA;
+                }
+            temp=temp->next;
+            }
+            
+            headA=headA->next;
+        }
+       return NULL;
+    }
+};
+
+
