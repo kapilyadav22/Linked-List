@@ -1,0 +1,85 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* dummynode = new ListNode(-101);
+        dummynode->next= head;
+        ListNode* prev = dummynode;
+        ListNode* current =head;
+        
+        while(current)
+            {
+            
+            if(current->next && current->val==current->next->val)
+                {
+                while(current->next && current->val==current->next->val)
+                {
+                    current=current->next;
+                }
+                prev->next = current->next;
+                }
+          else   prev = current;
+            current = current->next;
+
+            
+            
+        }
+        return dummynode->next;
+    }
+};
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) 
+    {
+     if(head==NULL||head->next==NULL) return head;
+    bool isDuplicate=false;
+    ListNode *curr=head,*prev=NULL;
+    
+        while(curr!=NULL&&curr->next!=NULL)
+        {
+            if(curr->val==curr->next->val)
+            {
+            ListNode *temp=curr->next;
+            curr->next=curr->next->next;
+            delete temp;
+            isDuplicate=true;
+            continue;
+            }
+            else
+            {
+                if(isDuplicate)
+                {
+                    if(curr->next!=NULL)
+                    {
+                    curr->val=curr->next->val;
+                    ListNode *temp=curr->next;
+                    curr->next=curr->next->next;
+                    delete temp;
+                    isDuplicate=false;
+                    }
+                }
+                 else
+                {
+                prev=curr;
+                curr=curr->next;
+                }
+         }
+     }
+        
+    if(isDuplicate==true && curr->next==NULL)
+    {
+        if(prev==NULL)
+        {
+        delete curr;
+        return NULL;
+        }
+        else
+        {
+        prev->next=NULL;
+        delete curr;
+        return head;
+        }
+    }
+    return head;
+}
+};
