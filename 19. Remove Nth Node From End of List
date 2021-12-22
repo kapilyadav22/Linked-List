@@ -1,0 +1,37 @@
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev=NULL;
+        ListNode* current = head;
+        ListNode* Temp= NULL;
+      
+      while(current!=NULL)
+      {
+         Temp= current->next;
+         current->next= prev;
+          prev= current;
+        current=Temp;
+      }
+      return prev;
+    }
+    
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* l1 = reverseList(head);
+        ListNode* dummynode = new ListNode(-100);
+        dummynode->next = l1;
+        
+        ListNode* current = l1;
+        ListNode* prev = dummynode;
+        int count=0;
+        while((count+1)!=n)
+        {
+            prev=current;
+            current=current->next;
+            count++;
+        }
+        prev->next = current->next;
+        delete current;
+         return reverseList(dummynode->next);
+    }
+   
+};
