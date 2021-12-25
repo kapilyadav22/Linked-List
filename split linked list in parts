@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+       
+        ListNode* current=head;
+        int length=0;
+        while(current)
+        {   current=current->next;
+            length++;
+        }
+        int nodesinagroup= length/k;
+        int extranodes = length%k;
+        
+        vector<ListNode*> res;
+        current=head;
+        
+        while(current)
+        {   res.push_back(current);
+            int currentlength=1;
+            while(currentlength<nodesinagroup)
+            {
+                current=current->next;
+                currentlength++;
+            }
+         if(extranodes>0 && length>k)
+         {
+             current=current->next;
+             extranodes--;
+         }   
+         ListNode* temp=current->next;
+         current->next=NULL;
+         current=temp;
+        }
+        
+        while(length<k)
+        {
+            res.push_back(NULL);
+            length++;
+        }
+        return res;
+        
+        
+        
+    }
+};
