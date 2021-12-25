@@ -1,29 +1,28 @@
 class Solution {
 public:
-    ListNode* sortListUtil(ListNode* head,int l,int r){
-        if(l<r){
-            int mid=(l+r)/2;
-            ListNode* LHead=head;
-            ListNode* curr=head;
-            int diff=mid-l;
-            while(diff){
-                diff--;
-                curr=curr->next;
-            }
-            ListNode* RHead=curr->next;
-            curr->next=nullptr;
-            ListNode* left=sortListUtil(LHead,l,mid);
-            ListNode* right=sortListUtil(RHead,mid+1,r);
-            ListNode* merged=mergeTwoLists(left,right);
-            return merged;
+    ListNode* sortList(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        
+        ListNode* fast= head;
+        ListNode* slow= head;
+        
+        while(fast->next && fast->next->next)
+        {
+            fast=fast->next->next;
+            slow= slow->next;
         }
-        ListNode* curr=head;
-        if(curr==nullptr) return nullptr;
-        curr->next=nullptr;
-        return curr;
+    ListNode* list2 = slow->next;
+    slow->next=NULL;
+    ListNode* list1 = head;
+        
+       ListNode* left = sortList(list1);
+       ListNode* right = sortList(list2);
+    ListNode* answer = mergeTwoLists(left,right);
+        return answer;
+        
     }
-    
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         if(list1==nullptr && list2==nullptr) return nullptr;
         if(list1==nullptr) return list2;
         if(list2==nullptr) return list1;
@@ -52,15 +51,4 @@ public:
         return nH->next;
     }
     
-    
-    ListNode* sortList(ListNode* head) {
-         int count=0;
-        
-        ListNode* curr=head;
-        while(curr!=nullptr){
-            count++;
-            curr=curr->next;
-        }
-        return sortListUtil(head,0,count-1);
-    }
 };
