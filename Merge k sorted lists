@@ -1,0 +1,51 @@
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        int m=lists.size();
+        
+        if(m==0)
+            return 0;
+        if(m==1)
+            return lists[0];
+        
+        ListNode* l1= lists[0];
+        ListNode* l2 = lists[1];
+        ListNode* l= mergeTwoLists(l1,l2);
+        
+    for(int i =2;i<m;i++)
+    {
+        l= mergeTwoLists(l,lists[i]);
+    }
+    return l;
+    }
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1==nullptr && list2==nullptr) return nullptr;
+        if(list1==nullptr) return list2;
+        if(list2==nullptr) return list1;
+        ListNode* l1=list1;
+        ListNode* l2=list2;
+        ListNode* nH=new ListNode(-1);
+        ListNode* nC=nH;
+        while(l1!=nullptr && l2!=nullptr){
+            if((l1->val)<(l2->val)){
+                ListNode* curr=l1;
+                l1=l1->next;
+                nC->next=curr;
+                nC=curr;
+            }else{
+                ListNode* curr=l2;
+                l2=l2->next;
+                nC->next=curr;
+                nC=curr;
+            }
+        }
+        if(l1==nullptr){
+            nC->next=l2;
+        }else if(l2==nullptr){
+            nC->next=l1;
+        }
+        return nH->next;
+    }
+};
+
+//not optimal  TC= O(nk)
